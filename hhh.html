@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Online Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1em;
+    }
+
+    section {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 1em;
+    }
+
+    .product {
+      border: 1px solid #ddd;
+      padding: 1em;
+      margin: 1em;
+      text-align: center;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #cart {
+      margin-top: 1em;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Simple Online Store</h1>
+  </header>
+
+  <section id="products">
+    <div class="product" data-id="1" data-name="Product 1" data-price="20.00">
+      <h2>Product 1</h2>
+      <p>$20.00</p>
+      <button onclick="addToCart(1)">Add to Cart</button>
+    </div>
+
+    <div class="product" data-id="2" data-name="Product 2" data-price="30.00">
+      <h2>Product 2</h2>
+      <p>$30.00</p>
+      <button onclick="addToCart(2)">Add to Cart</button>
+    </div>
+
+    <!-- Add more products as needed -->
+
+  </section>
+
+  <section id="cart">
+    <h2>Shopping Cart</h2>
+    <ul id="cartItems"></ul>
+    <p>Total: $<span id="cartTotal">0.00</span></p>
+  </section>
+
+  <script>
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
+
+    function addToCart(productId) {
+      const product = document.querySelector(`.product[data-id="${productId}"]`);
+      const productName = product.dataset.name;
+      const productPrice = parseFloat(product.dataset.price);
+
+      const listItem = document.createElement("li");
+      listItem.textContent = `${productName} - $${productPrice.toFixed(2)}`;
+      cartItems.appendChild(listItem);
+
+      updateCartTotal(productPrice);
+    }
+
+    function updateCartTotal(price) {
+      const currentTotal = parseFloat(cartTotal.textContent);
+      cartTotal.textContent = (currentTotal + price).toFixed(2);
+    }
+  </script>
+
+</body>
+</html>
+
